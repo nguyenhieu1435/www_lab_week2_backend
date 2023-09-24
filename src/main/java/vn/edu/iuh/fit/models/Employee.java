@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 import org.checkerframework.checker.units.qual.C;
@@ -30,6 +31,7 @@ public class Employee {
     @Column(columnDefinition = "INT(11) SIGNED", nullable = false)
     private EmployeeStatus status;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Order> lstOrder;
 
     public Employee() {

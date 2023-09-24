@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,7 +21,9 @@ public class Customer {
     private String phone;
     @Column(columnDefinition = "VARCHAR(150)")
     private String email;
+
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Order> orderList;
 
     public Customer() {

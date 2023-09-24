@@ -66,7 +66,6 @@ public class CustomerRepository {
     }
     public Optional<Customer> findOne(long custId){
         Customer customer = em.find(Customer.class, custId);
-
         return customer != null ? Optional.of(customer) : Optional.empty();
     }
 

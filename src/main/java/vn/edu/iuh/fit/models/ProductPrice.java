@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 
@@ -13,6 +14,7 @@ public class ProductPrice {
     @Id
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
     @Column(columnDefinition = "VARCHAR(255)")
     private String note;

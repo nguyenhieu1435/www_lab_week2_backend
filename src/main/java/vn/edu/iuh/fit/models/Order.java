@@ -1,5 +1,7 @@
 package vn.edu.iuh.fit.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 
@@ -19,11 +21,14 @@ public class Order {
     private LocalDateTime orderDate;
     @ManyToOne
     @JoinColumn(name = "cust_id")
+    @JsonBackReference
     private Customer customer;
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false, referencedColumnName = "emp_id")
+    @JsonBackReference
     private Employee employee;
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderDetail> orderDetails;
 
     public Order() {
