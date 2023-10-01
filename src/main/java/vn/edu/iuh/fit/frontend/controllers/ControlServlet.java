@@ -9,10 +9,7 @@ import vn.edu.iuh.fit.backend.models.Customer;
 import vn.edu.iuh.fit.backend.models.Order;
 import vn.edu.iuh.fit.backend.models.OrderDetail;
 import vn.edu.iuh.fit.backend.services.EmployeeService;
-import vn.edu.iuh.fit.frontend.model.CustomerModel;
-import vn.edu.iuh.fit.frontend.model.EmployeeModel;
-import vn.edu.iuh.fit.frontend.model.OrderDetailModel;
-import vn.edu.iuh.fit.frontend.model.OrderModel;
+import vn.edu.iuh.fit.frontend.model.*;
 
 import java.io.IOException;
 
@@ -180,6 +177,22 @@ public class ControlServlet extends HttpServlet {
             case "deleteOrderDetail": {
                 OrderDetailModel orderDetailModel = new OrderDetailModel();
                 orderDetailModel.deleteOrderDetail(req, resp);
+                break;
+            }
+            // CRUD Product
+            case "product_list":{
+                ProductModel productModel = new ProductModel();
+                productModel.getProductList(req, resp);
+                break;
+            }
+            case "decreaseProductMng": {
+                ProductModel productModel = new ProductModel();
+                productModel.decreaseProductMng(req, resp);
+                break;
+            }
+            case "increaseProductMng": {
+                ProductModel productModel = new ProductModel();
+                productModel.increaseProductMng(req, resp);
                 break;
             }
             default : {

@@ -4,6 +4,7 @@ import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product_price")
@@ -32,6 +33,19 @@ public class ProductPrice {
         this.note = note;
         this.price_date_time = price_date_time;
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductPrice that = (ProductPrice) o;
+        return Objects.equals(product, that.product) && Objects.equals(price_date_time, that.price_date_time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, price_date_time);
     }
 
     public Product getProduct() {

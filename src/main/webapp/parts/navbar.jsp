@@ -23,13 +23,7 @@
                 <a class="nav-link" href="#">D/sách sản phẩm</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Q/lý sản phẩm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Q/lý Gía sản phẩm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Q/lý Ảnh Sản phẩm</a>
+                <a class="nav-link" href="control-servlet?action=product_list">Q/lý sản phẩm</a>
             </li>
 
             <li class="nav-item dropdown">

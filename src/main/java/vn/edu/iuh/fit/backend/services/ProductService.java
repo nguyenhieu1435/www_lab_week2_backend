@@ -27,4 +27,7 @@ public class ProductService {
     public List<Product> findAll(){
         return productRepository.findAll();
     }
+    public List<Product> getProductByPageNum(int pageNum, int limitNum){
+        return productRepository.getProductByPageNum(pageNum, limitNum);
+    }
 }

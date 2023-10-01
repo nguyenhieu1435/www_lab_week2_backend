@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import vn.edu.iuh.fit.backend.database.Connection;
 import vn.edu.iuh.fit.backend.enums.ProductStatus;
 import vn.edu.iuh.fit.backend.models.Product;
+import vn.edu.iuh.fit.backend.models.ProductPrice;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,4 +75,11 @@ public class ProductRepository {
         return query.getResultList();
     }
 
+    public List<Product> getProductByPageNum(int pageNum, int limitNum){
+        TypedQuery<Product> query = em.createNamedQuery("Product.getProductByPageNum", Product.class);
+        query.setParameter("status", ProductStatus.NoLongerInBusiness);
+        query.setFirstResult((pageNum-1)*limitNum);
+        query.setMaxResults(limitNum);
+        return query.getResultList();
+    }
 }

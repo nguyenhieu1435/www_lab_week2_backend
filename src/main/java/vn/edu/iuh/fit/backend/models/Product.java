@@ -11,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "product")
 @NamedQuery(name = "Product.findAll", query = "SELECT p from Product  p where p.status <> :status")
+@NamedQuery(name = "Product.getProductByPageNum", query = "SELECT p from Product p where p.status <> :status")
 @JsonIgnoreProperties({"productImageList", "orderDetails"})
 public class Product {
     @Id
