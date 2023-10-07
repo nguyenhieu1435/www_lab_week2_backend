@@ -31,4 +31,7 @@ public class ProductPriceService {
     public Optional<ProductPrice> getNewestProductPriceByProductId(long id){
         return productPriceRepository.getNewestProductPriceByProductId(id);
     }
+    public List<ProductPrice> getProductsByNumPage(long productId, int pageNum, int limitNum){
+        return productPriceRepository.getProductsByNumPage(productId, pageNum, limitNum);
+    }
 }

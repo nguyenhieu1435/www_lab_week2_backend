@@ -82,4 +82,11 @@ public class ProductRepository {
         query.setMaxResults(limitNum);
         return query.getResultList();
     }
+    public List<Product> getProductAvailableByPageNum(int pageNum, int limitNum){
+        TypedQuery<Product> query = em.createNamedQuery("Product.getProductAvailableByPageNum", Product.class);
+        query.setParameter("status", ProductStatus.DoingBusiness);
+        query.setFirstResult((pageNum-1)*limitNum);
+        query.setMaxResults(limitNum);
+        return query.getResultList();
+    }
 }

@@ -11,6 +11,7 @@ import java.util.Objects;
 @NamedQuery(name = "ProductPrice.findOne", query = "SELECT pp from ProductPrice pp where pp.product.id = :product and pp.price_date_time = :price_date_time")
 @NamedQuery(name = "ProductPrice.findAll", query ="SELECT pp from ProductPrice pp")
 @NamedQuery(name = "ProductPrice.getNewestOneByProductId", query = "SELECT pp from ProductPrice pp where pp.product.id = :productId order by pp.price_date_time desc")
+@NamedQuery(name = "ProductPrice.getPriceByProductIdWithPagination", query = "SELECT pp from ProductPrice pp where pp.product.id = :productId order by pp.price_date_time desc")
 public class ProductPrice {
     @Id
     @ManyToOne
@@ -26,6 +27,12 @@ public class ProductPrice {
 
     public ProductPrice() {
 
+    }
+
+    public ProductPrice(String note, LocalDateTime price_date_time, double price) {
+        this.note = note;
+        this.price_date_time = price_date_time;
+        this.price = price;
     }
 
     public ProductPrice(Product product, String note, LocalDateTime price_date_time, double price) {

@@ -1,23 +1,32 @@
 package vn.edu.iuh.fit.frontend.controllers;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.edu.iuh.fit.backend.models.Customer;
-import vn.edu.iuh.fit.backend.models.Order;
-import vn.edu.iuh.fit.backend.models.OrderDetail;
+import vn.edu.iuh.fit.backend.models.*;
 import vn.edu.iuh.fit.backend.services.EmployeeService;
 import vn.edu.iuh.fit.frontend.model.*;
 
 import java.io.IOException;
 
 @WebServlet(name = "ControlServlet", value = "/control-servlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 50, // 50MB
+        maxRequestSize = 1024 * 1024 * 50)
 public class ControlServlet extends HttpServlet {
-    public ControlServlet(){
+
+    @Override
+    public void init() throws ServletException {
+
     }
 
+    public ControlServlet(){
+
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -63,6 +72,51 @@ public class ControlServlet extends HttpServlet {
             case "updateOrderDetail": {
                 OrderDetailModel orderDetailModel = new OrderDetailModel();
                 orderDetailModel.updateOrderDetail(req, resp);
+                break;
+            }
+            case "addNewProduct": {
+                ProductModel productModel = new ProductModel();
+                productModel.addNewProduct(req, resp);
+                break;
+            }
+            case "updateOneProduct": {
+                ProductModel productModel = new ProductModel();
+                productModel.updateOneProduct(req, resp);
+                break;
+            }
+            case "addProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.addProductPrice(req, resp);
+                break;
+            }
+            case "updateProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.updateProductPrice(req, resp);
+                break;
+            }
+            case "addNewProductImage": {
+                ProductImageModel productImageModel = new ProductImageModel();
+                productImageModel.addNewProductImage(req, resp);
+                break;
+            }
+            case "updateProductImage": {
+                ProductImageModel productImageModel =new ProductImageModel();
+                productImageModel.updateProductImage(req, resp);
+                break;
+            }
+            case "addToCart": {
+                ProductModel productModel =new ProductModel();
+                productModel.addToCart(req, resp);
+                break;
+            }
+            case "getStatisticsOrderByDateRange": {
+                OrderModel orderModel = new OrderModel();
+                orderModel.getStatisticsOrderByDateRange(req, resp);
+                break;
+            }
+            case "getStatisticsOrderByDateRangeAndEmpId": {
+                OrderModel orderModel = new OrderModel();
+                orderModel.getStatisticsOrderByDateRangeAndEmpId(req, resp);
                 break;
             }
             default: {
@@ -193,6 +247,108 @@ public class ControlServlet extends HttpServlet {
             case "increaseProductMng": {
                 ProductModel productModel = new ProductModel();
                 productModel.increaseProductMng(req, resp);
+                break;
+            }
+            case "updateProductManagement": {
+                ProductModel productModel = new ProductModel();
+                productModel.updateProductManagement(req, resp);
+                break;
+            }
+            case "deleteProductManagement":{
+                ProductModel productModel = new ProductModel();
+                productModel.deleteProductManagement(req, resp);
+                break;
+            }
+            case "getPriceListByProduct": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.getPriceListByProduct(req, resp);
+                break;
+            }
+            case "decreaseProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.decreaseProductPrice(req, resp);
+                break;
+            }
+            case "increaseProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.increaseProductPrice(req, resp);
+                break;
+            }
+            case "handleOpenUpdateProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.handleOpenUpdateProductPrice(req, resp);
+                break;
+            }
+            case "deleteProductPrice": {
+                ProductPriceModel productPriceModel = new ProductPriceModel();
+                productPriceModel.deleteProductPrice(req, resp);
+                break;
+            }
+            case "getImgListByProduct": {
+                ProductImageModel productImageModel = new ProductImageModel();
+                productImageModel.getImgListByProduct(req, resp);
+                break;
+            }
+            case "decreaseProductImage": {
+                ProductImageModel productImageModel =new ProductImageModel();
+                productImageModel.decreaseProductImage(req, resp);
+                break;
+            }
+            case "increaseProductImage": {
+                ProductImageModel productImageModel = new ProductImageModel();
+                productImageModel.increaseProductImage(req, resp);
+                break;
+
+            }
+            case "handleOpenUpdProductImage": {
+                ProductImageModel productImageModel = new ProductImageModel();
+                productImageModel.handleOpenUpdProductImage(req, resp);
+                break;
+            }
+            case "deleletProductImage": {
+                ProductImageModel productImageModel = new ProductImageModel();
+                productImageModel.deleletProductImage(req, resp);
+                break;
+            }
+            case "handleOpenProductListClient": {
+                ProductModel productModel = new ProductModel();
+                productModel.handleOpenProductListClient(req, resp);
+                break;
+
+            }
+            case "decreaseProductListClient": {
+                ProductModel productModel = new ProductModel();
+                productModel.decreaseProductListClient(req, resp);
+                break;
+            }
+            case "increaseProductListClient": {
+                ProductModel productModel = new ProductModel();
+                productModel.increaseProductListClient(req, resp);
+                break;
+            }
+            case "handleOpenCart": {
+                ProductModel productModel = new ProductModel();
+                productModel.handleOpenCart(req, resp);
+                break;
+            }
+            case "deleteItemFromCart": {
+                ProductModel productModel = new ProductModel();
+                productModel.deleteItemFromCart(req, resp);
+                break;
+            }
+            case "decreaseItemCart": {
+                ProductModel productModel = new ProductModel();
+                productModel.decreaseItemCart(req, resp);
+                break;
+            }
+            case "increaseItemCart":{
+                ProductModel productModel = new ProductModel();
+                productModel.increaseItemCart(req, resp);
+                break;
+            }
+            case "handleOpenGetOrderByDate": {
+                OrderModel orderModel = new OrderModel();
+                orderModel.handleOpenGetOrderByDate(req, resp);
                 break;
             }
             default : {

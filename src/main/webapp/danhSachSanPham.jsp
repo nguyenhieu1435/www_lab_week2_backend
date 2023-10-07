@@ -18,6 +18,8 @@
     List<ProductPrice> productPriceList = (List<ProductPrice>) session.getAttribute("productPricesOfManagement");
     int numPageProductManagement = (int)session.getAttribute("numPageProductManagement");
     int numLimitProductManagement = (int)session.getAttribute("numLimitProductManagement");
+    String msgResultDeleteProduct = (String)session.getAttribute("msgResultDeleteProduct");
+
 %>
 
 <%if (productList == null || productList.isEmpty()){%>
@@ -44,6 +46,7 @@
                 <tr>
                     <th scope="row"><%=productList.get(i).getProduct_id()%></th>
                     <td class="d-flex justify-content-center">
+                        <%System.out.println(productList.get(i).getProductImageList());%>
                         <img style="width: 50px; height: 50px" src="<%=(productList.get(i).getProductImageList() != null && !productList.get(i).getProductImageList().isEmpty()) ?  productList.get(i).getProductImageList().get(0).getPath() : "https://static.vecteezy.com/system/resources/previews/007/451/786/original/an-outline-isometric-icon-of-unknown-product-vector.jpg"%>">
                     </td>
                     <td><%=productList.get(i).getName()%></td>
@@ -53,8 +56,19 @@
                     <td><%=productList.get(i).getStatus()%></td>
                     <td><%=productPriceList.get(i) != null ? productPriceList.get(i).getPrice() : 0%></td>
                     <td class="text-center">
-                        <a class="btn btn-warning" href="control-servlet?action=&id=">Update</a>
-                        <a class="btn btn-danger" href="control-servlet?action=&id=">Delete</a>
+                        <a class="btn btn-primary" href="control-servlet?action=getPriceListByProduct&id=<%=productList.get(i).getProduct_id()%>">
+                            Price List
+                        </a>
+                        <a class="btn btn-primary" href="control-servlet?action=getImgListByProduct&id=<%=productList.get(i).getProduct_id()%>">
+                            Image List
+                        </a>
+                        <a class="btn btn-warning"
+                           href="control-servlet?action=updateProductManagement&id=<%=productList.get(i).getProduct_id()%>">
+                            Update
+                        </a>
+                        <a class="btn btn-danger"
+                           href="control-servlet?action=deleteProductManagement&id=<%=productList.get(i).getProduct_id()%>"
+                        >Delete</a>
                     </td>
                 </tr>
             <%}%>
@@ -67,6 +81,10 @@
         <span class="mx-3"><%=numPageProductManagement%></span>
         <a class="btn btn-primary" href="control-servlet?action=increaseProductMng">Next</a>
     </div>
+    <%if (msgResultDeleteProduct != null && !msgResultDeleteProduct.isEmpty()){%>
+            <h1 class="text-center text-primary"><%=msgResultDeleteProduct%></h1>
+    <%}%>
+    <%if (msgResultDeleteProduct != null) {session.removeAttribute("msgResultDeleteProduct");}%>
 <%}%>
 
 <%@ include file="./parts/footer.jsp"%>

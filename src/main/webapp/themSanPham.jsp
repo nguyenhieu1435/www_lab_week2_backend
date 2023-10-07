@@ -10,8 +10,14 @@
 <%@ include file="./parts/header.jsp"%>
 <%@ include file="./parts/navbar.jsp"%>
 
+<%
+    String msgErrAddProductManagement = (String)session.getAttribute("msgErrAddProductManagement");
+
+%>
+
 <div class="container">
-    <form action="control-servlet?action=addCustomer" method="POST">
+    <h1 class="text-center text-danger"><%=msgErrAddProductManagement != null ? msgErrAddProductManagement : ""%></h1>
+    <form action="control-servlet?action=addNewProduct" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="inputName" class="form-label">Name</label>
             <input type="text" class="form-control" id="inputName"
@@ -61,17 +67,19 @@
         <div class="mb-3">
             <label for="inputImgPri" class="form-label">Image Primary</label>
             <input type="file" class="form-control" id="inputImgPri"
-                   name="name"
+                   name="imagePrimary"
+                   size="60"
             >
         </div>
         <div class="mb-3">
             <label for="inputImgSrd" class="form-label">Image Alternative</label>
             <input type="file" class="form-control" id="inputImgSrd"
-                   name="name"
+                   name="imageAlternative"
+                   size="60"
             >
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
+<%session.removeAttribute("msgErrAddProductManagement");%>
 <%@ include file="./parts/footer.jsp"%>

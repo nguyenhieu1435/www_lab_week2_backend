@@ -80,4 +80,11 @@ public class ProductPriceRepository {
         List<ProductPrice> productPrices = query.getResultList();
         return productPrices.isEmpty() ? Optional.empty() : Optional.of(productPrices.get(0));
     }
+    public List<ProductPrice> getProductsByNumPage(long productId, int pageNum, int limitNum){
+        TypedQuery<ProductPrice> query = em.createNamedQuery("ProductPrice.getPriceByProductIdWithPagination", ProductPrice.class);
+        query.setParameter("productId",  productId);
+        query.setFirstResult((pageNum-1)*limitNum);
+        query.setMaxResults(limitNum);
+        return query.getResultList();
+    }
 }

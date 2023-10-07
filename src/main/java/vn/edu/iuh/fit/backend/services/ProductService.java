@@ -30,4 +30,7 @@ public class ProductService {
     public List<Product> getProductByPageNum(int pageNum, int limitNum){
         return productRepository.getProductByPageNum(pageNum, limitNum);
     }
+    public List<Product> getProductAvailableByPageNum(int pageNum, int limitNum){
+        return productRepository.getProductAvailableByPageNum(pageNum, limitNum);
+    }
 }

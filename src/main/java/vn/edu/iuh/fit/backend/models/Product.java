@@ -12,7 +12,8 @@ import java.util.Objects;
 @Table(name = "product")
 @NamedQuery(name = "Product.findAll", query = "SELECT p from Product  p where p.status <> :status")
 @NamedQuery(name = "Product.getProductByPageNum", query = "SELECT p from Product p where p.status <> :status")
-@JsonIgnoreProperties({"productImageList", "orderDetails"})
+@NamedQuery(name = "Product.getProductAvailableByPageNum", query = "SELECT p from Product p where p.status = :status")
+@JsonIgnoreProperties({"productImageList", "orderDetails", "productPrices"})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +35,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProductPrice> productPrices;
 
     public Product() {
     }
@@ -44,6 +47,24 @@ public class Product {
 
     public Product(long product_id, String name, String manufacturer, String description, String unit, ProductStatus status) {
         this.product_id = product_id;
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.description = description;
+        this.unit = unit;
+        this.status = status;
+    }
+
+    public Product(String name, String manufacturer, String description, String unit, ProductStatus status, List<ProductImage> productImageList, List<ProductPrice> productPrices) {
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.description = description;
+        this.unit = unit;
+        this.status = status;
+        this.productImageList = productImageList;
+        this.productPrices = productPrices;
+    }
+
+    public Product(String name, String manufacturer, String description, String unit, ProductStatus status) {
         this.name = name;
         this.manufacturer = manufacturer;
         this.description = description;
@@ -137,6 +158,14 @@ public class Product {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public List<ProductPrice> getProductPrices() {
+        return productPrices;
+    }
+
+    public void setProductPrices(List<ProductPrice> productPrices) {
+        this.productPrices = productPrices;
     }
 
     @Override

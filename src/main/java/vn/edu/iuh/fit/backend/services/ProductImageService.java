@@ -27,4 +27,7 @@ public class ProductImageService {
     public List<ProductImage> findAll(){
         return productImageRepository.findAll();
     }
+    public List<ProductImage> getImageByProductIdWithPagination(long productID, int numPage, int limitNum){
+        return productImageRepository.getImageByProductIdWithPagination(productID, numPage, limitNum);
+    }
 }

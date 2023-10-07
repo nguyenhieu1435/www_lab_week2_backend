@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class OrderModel {
@@ -170,5 +171,47 @@ public class OrderModel {
         }
         req.getSession().setAttribute("errMsgDelOrder", "Xóa thành công!");
         resp.sendRedirect("danhSachHoaDon.jsp");
+    }
+    public void handleOpenGetOrderByDate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Map<LocalDateTime, Integer> ordersByDate = orderService.getStatisticsOrderByDate();
+
+        req.getSession().setAttribute("statisticsOrderByDate", ordersByDate);
+        resp.sendRedirect("getOrderByDate.jsp");
+
+    }
+    public void getStatisticsOrderByDateRange(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime beginDate = LocalDateTime.parse(req.getParameter("beginDate"), formatter);
+        LocalDateTime endDate = LocalDateTime.parse(req.getParameter("endDate"), formatter);
+        if (endDate.isEqual( beginDate ) || endDate.isBefore(beginDate)){
+            req.getSession().setAttribute("errGetStatisticOrderByDateRange", "Ngày bắt đầu phải trước ngày kết thúc");
+            resp.sendRedirect("getOrderByDateRange.jsp");
+            return;
+        }
+        double totalPrice = orderService.getStatisticsOrderNumByDateRange(beginDate, endDate);
+        req.getSession().setAttribute("statisticsPriceByDateRange", totalPrice);
+        resp.sendRedirect("getOrderByDateRange.jsp");
+    }
+    public void getStatisticsOrderByDateRangeAndEmpId(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime beginDate = LocalDateTime.parse(req.getParameter("beginDate"), formatter);
+        LocalDateTime endDate = LocalDateTime.parse(req.getParameter("endDate"), formatter);
+        long employeeId = Long.parseLong(req.getParameter("emdId").trim());
+
+        if (endDate.isEqual( beginDate ) || endDate.isBefore(beginDate)){
+            req.getSession().setAttribute("errGetStatisticOrderByDateRange", "Ngày bắt đầu phải trước ngày kết thúc");
+            resp.sendRedirect("getOrderByDateRange.jsp");
+            return;
+        }
+
+        Employee employee = employeeService.findOne(employeeId).orElse(null);
+        if (employee != null){
+            double totalPrice = orderService.getStatisticsOrderNumByDateRangeAndEmpId(employeeId, beginDate, endDate);
+            req.getSession().setAttribute("statisticsPriceByDateRangeAndEmpID", totalPrice);
+            resp.sendRedirect("getOrderByDateRangeAndEmpId.jsp");
+            return;
+        }
+        req.getSession().setAttribute("errGetStatisticOrderByDateRangeAnEmpId", "ID Nhân viên không hợp lệ");
+        resp.sendRedirect("getOrderByDateRangeAndEmpId.jsp");
     }
 }

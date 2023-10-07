@@ -70,4 +70,12 @@ public class ProductImageRepository {
         TypedQuery<ProductImage> query = em.createNamedQuery("ProductImage.findAll", ProductImage.class);
         return query.getResultList();
     }
+    public List<ProductImage> getImageByProductIdWithPagination(long productID, int numPage, int limitNum){
+        TypedQuery<ProductImage> query = em.createNamedQuery("ProductImage.getImageByProductIdAndPagination", ProductImage.class);
+        query.setParameter("productId", productID);
+        query.setFirstResult((numPage-1)*limitNum);
+        query.setMaxResults(limitNum);
+        return query.getResultList();
+    }
+
 }
