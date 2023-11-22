@@ -41,9 +41,9 @@
                     " alt=""/>
                 </div>
                 <div class="col-2 text-center border border-dark"><%=productList.get(i).getName()%></div>
-                <div class="col-2 text-center border border-dark"><%=productList.get(i).getDescription()%></div>
+                <div class="col-2 text-center border border-dark"><%=productList.get(i).getDescription()%></div>D
                 <div class="col-2 text-center border border-dark"><%=productList.get(i).getManufacturer()%></div>
-                <div class="col-2 text-center border border-dark"><%=productPriceList != null && !productPriceList.isEmpty() && productPriceList.get(i) != null ? productPriceList.get(i).getPrice() : "not for sell"%></div>
+                <div class="col-2 text-center border border-dark"><%=productPriceList != null && !productPriceList.isEmpty() && productPriceList.size() > i && productPriceList.get(i) != null ? productPriceList.get(i).getPrice() : "not for sell"%></div>
                 <div class="col-2 d-flex align-items-center gap-4 justify-content-center border border-dark">
                     <input type="number" value="0" name="quantityOrder" style="width: 60px" class="mr-2" required/>
                     <input type="hidden" name="productId" value="<%=productList.get(i).getProduct_id()%>"/>
